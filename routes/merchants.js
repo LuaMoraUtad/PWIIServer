@@ -1,15 +1,17 @@
 const express = require("express");
-const {getMerchants} = require("../controllers/merchants")
-const {validatorRegister, validatorLogin, validatorSetadmin, validatorGetUser, validatorUpdate} = require("../validators/auth");
+const { getMerchants, getMerchantsById, registerMerchants } = require("../controllers/merchants")
+const { validatorGetMerchants, validatorRegisterMerchants } = require("../validators/merchants");
 const authMiddleware = require("../middleware/session");
 const checkRol = require("../middleware/rol");
 const router = express.Router();
 
+router.get("/", authMiddleware, checkRol(["admin"]), getMerchants);
 
+router.get("/:id", authMiddleware, checkRol(["admin"]),validatorGetMerchants, getMerchantsById);
 
-router.get("/merchants", authMiddleware, checkRol(["admin"]), getMerchants);
+router.post("/", authMiddleware, checkRol(["admin"]), validatorRegisterMerchants, registerMerchants);
 
-/*router.post("/register", validatorRegister, registerCtrl);
+/*
 
 router.post("/login", validatorLogin, loginCtrl);
 
