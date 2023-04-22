@@ -8,14 +8,25 @@ const User = sequelize.define(
             type: DataTypes.STRING, //Puede definir el tamaño del STRING, por ejemplo, con STRING(64), que sería un VARCHAR(64) en MySQL
             allowNull: false
         },
-        age: {
-            type: DataTypes.INTEGER
-        },
         email: {
             type: DataTypes.STRING
         },
         password:{
             type: DataTypes.STRING
+        },
+        age: {
+            type: DataTypes.INTEGER
+        },
+        ciudad: {
+            type: DataTypes.STRING
+        },
+        interes: {
+            type: DataTypes.STRING
+        },
+        recibirOfertas: {
+            type: DataTypes.ENUM,
+            values: ["true", "false"],
+            defaultValue: "true"
         },
         role:{
             type: DataTypes.ENUM,
