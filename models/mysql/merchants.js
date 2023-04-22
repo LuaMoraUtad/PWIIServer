@@ -2,10 +2,10 @@ const { sequelize } = require("../../config/mysql");
 const { DataTypes } = require("sequelize");
 
 const Merchants = sequelize.define(
-    "merchants", //Nombre de la tabla
+    "merchants",
     {
         nombre: {
-            type: DataTypes.STRING, //Puede definir el tamaño del STRING, por ejemplo, con STRING(64), que sería un VARCHAR(64) en MySQL
+            type: DataTypes.STRING,
             allowNull: false
         },
         cif: {

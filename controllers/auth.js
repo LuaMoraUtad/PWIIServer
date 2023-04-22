@@ -1,9 +1,9 @@
 const { matchedData } = require("express-validator");
 const { tokenSign } = require("../utils/handleJwt");
 const { encrypt, compare } = require("../utils/handlePassword");
-const {handleHttpError} = require("../utils/handleError");
+const { handleHttpError } = require("../utils/handleError");
 const { verifyToken } = require("../utils/handleJwt");
-const {usersModel} = require("../models");
+const { usersModel } = require("../models");
 const getProperties = require("../utils/handlePropertiesEngine");
 const propertiesKey = getProperties();
 
@@ -14,8 +14,8 @@ const propertiesKey = getProperties();
 */
 
 const registerCtrl = async (req, res) => {
-    try{
-        req = matchedData(req);
+    try{       
+        req = matchedData(req);    
         const password = await encrypt(req.password);
         const body = {...req, password}; // Con "..." duplicamos el objeto y le añadimos o sobreescribimos una propiedad
         const dataUser = await usersModel.create(body);
@@ -29,6 +29,25 @@ const registerCtrl = async (req, res) => {
         }
         
         res.send(data);
+    }catch(err){
+        console.log(err);
+        handleHttpError(res, "ERROR_REGISTER_USER");
+    }
+}
+
+const registerCtrlMerchant = async (req, res) => {
+    try{  
+        const password = await encrypt(req.password);
+        const body = {...req, password}; // Con "..." duplicamos el objeto y le añadimos o sobreescribimos una propiedad
+        const dataUser = await usersModel.create(body);
+      
+        const data = {
+            token: await tokenSign(dataUser)
+        }
+        req  = {...req, data}; 
+
+        //res.send(data);
+        
     }catch(err){
         console.log(err);
         handleHttpError(res, "ERROR_REGISTER_USER");
@@ -172,4 +191,4 @@ const getUsers = async (req, res) => {
     }
 }
 
-module.exports = { registerCtrl, loginCtrl, setadminCtrl, updateUser, getUsers, deleteUser };
+module.exports = { registerCtrl, registerCtrlMerchant, loginCtrl, setadminCtrl, updateUser, getUsers, deleteUser};

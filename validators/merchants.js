@@ -14,7 +14,20 @@ const validatorRegisterMerchants = [
     check("direccion").exists().notEmpty(),
     check("email").exists().notEmpty(),
     check("telefono").exists().isInt(),
-    (req, res, next) => validateResults(req, res, next)
+    (req, res, next) => {
+        return validateResults(req, res, next);
+    }
 ]
 
-module.exports = { validatorGetMerchants, validatorRegisterMerchants };
+const validatorUpdateMerchants = [
+    check("nombre").exists().notEmpty(),
+    check("cif").exists().notEmpty(),
+    check("direccion").exists().notEmpty(),
+    check("email").exists().notEmpty(),
+    check("telefono").exists().isInt(),
+    (req, res, next) => {
+        return validateResults(req, res, next);
+    }
+]
+
+module.exports = { validatorGetMerchants, validatorRegisterMerchants, validatorUpdateMerchants };

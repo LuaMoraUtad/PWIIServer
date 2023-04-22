@@ -4,7 +4,10 @@ const models = {
     usersModel: require(pathModels+'users'),
     tracksModel: require(pathModels+'tracks'),
     storageModel: require(pathModels+'storage'),
-    merchantsModel:require(pathModels+'merchants'),
+    merchantsModel: require(pathModels+'merchants'),
+    webpagesModel: require(pathModels+'webpages'),
+    fotosModel: require(pathModels+'fotos'),
+    textosModel: require(pathModels+'textos'),
 }
 
 module.exports = models;
