@@ -36,7 +36,19 @@ const getItem = (req, res) => {
     //recepcionar el id del route
 }
 
+const getUsersCity = async (req, res) => {
+    try{
+        const {ciudad} = matchedData(req);
+        const data = await usersModel.findOne({where: { ciudad: ciudad }});
+
+        res.send(data);
+    }catch(err){
+        console.log(err);
+        handleHttpError(res, "ERROR_GET_USER_CIUDAD");
+    }
+}
+
 const updateItem = (req, res) => {}
 const deleteItem = (req, res) => {}
 
-module.exports = { getItems, getItem, createItem, updateItem, deleteItem };
+module.exports = { getItems, getItem, createItem, updateItem, deleteItem, getUsersCity };

@@ -20,4 +20,11 @@ const validatorGetItem = [
     }
 ]
 
-module.exports = { validatorCreateItem ,validatorGetItem};
+const validatorGetCity = [
+    check("ciudad").exists().notEmpty(),
+    (req, res, next) => {
+        return validateResults(req, res, next);
+    }
+]
+
+module.exports = { validatorCreateItem ,validatorGetItem, validatorGetCity };
