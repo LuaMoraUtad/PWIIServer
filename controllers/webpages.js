@@ -7,6 +7,54 @@ const { webpagesModel, usersModel, fotosModel, textosModel } = require("../model
 const getProperties = require("../utils/handlePropertiesEngine");
 const propertiesKey = getProperties();
 
+const getPaginas = async (req, res) => {
+    try{
+        const data = await webpagesModel.findAll({});
+        //const data = await usersModel.findOneData(id);
+        res.send(data);
+    }catch(err){
+        //Si nos sirve el de por defecto que hemos establecido, no es necesario pasar el 403
+        handleHttpError(res, 'ERROR_GET_WEBPAGES', 403);
+    }
+}
+
+const getPaginasById = async (req, res) => {
+    try{
+        const {id} = matchedData(req);
+        const data = await webpagesModel.findOne({where: { id: id }});
+
+        res.send(data);
+    }catch(err){
+        console.log(err);
+        handleHttpError(res, "ERROR_GET_WEBPAGES_BYID");
+    }
+}
+
+const getPaginasCity = async (req, res) => {
+    try{
+        const {ciudad} = matchedData(req);
+        const data = await webpagesModel.findOne({where: { ciudad: ciudad }});
+
+        res.send(data);
+    }catch(err){
+        console.log(err);
+        handleHttpError(res, "ERROR_GET_WEBPAGES_CIUDAD");
+    }
+}
+
+const getPaginasCityAndActivity = async (req, res) => {
+    try{
+        const {ciudad} = matchedData(req);
+        const {actividad} = matchedData(req);
+        const data = await webpagesModel.findOne({where: { ciudad: ciudad, actividad: actividad }});
+
+        res.send(data);
+    }catch(err){
+        console.log(err);
+        handleHttpError(res, "ERROR_GET_WEBPAGES_CIUDAD");
+    }
+}
+
 const registerPagina = async (req,varObj) => {
     try{  
         const body = {...req};
@@ -105,4 +153,16 @@ const deletePagina = async (req, res) => {
     }
 }
 
-module.exports = { registerPagina, registerPaginaCompleta, updatePagina, registerFotoPagina, registerTextoPagina, deletePagina };
+const patchPagina = async (req, res) => {
+    try{
+        const {id, ...body} = matchedData(req);
+        const data = await webpagesModel.update(body, {where: { id: id }});
+        
+        res.send(data);
+    }catch(err){
+        console.log(err);
+        handleHttpError(res, 'ERROR_PATCH_WEBPAGE');
+    }
+}
+
+module.exports = { getPaginas, getPaginasById, getPaginasCity, getPaginasCityAndActivity, registerPagina, registerPaginaCompleta, updatePagina, registerFotoPagina, registerTextoPagina, deletePagina, patchPagina };

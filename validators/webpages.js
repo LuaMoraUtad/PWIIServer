@@ -55,4 +55,26 @@ const validatorGuardarTextoPagina = [
     }
 ]
 
-module.exports = { validatorGetPagina, validatorRegisterPagina, validatorUpdatePagina, validatorGuardarFotoPagina, validatorGuardarTextoPagina };
+const validatorGetCity = [
+    check("ciudad").exists().notEmpty(),
+    (req, res, next) => {
+        return validateResults(req, res, next);
+    }
+]
+
+const validatorGetActivity = [
+    check("actividad").exists().notEmpty(),
+    (req, res, next) => {
+        return validateResults(req, res, next);
+    }
+]
+
+const validatorPatchPagina = [    
+    check("scoring").exists().isInt(),
+    check("reseñas").exists().notEmpty(),
+    (req, res, next) => {
+        return validateResults(req, res, next);
+    }
+]
+
+module.exports = { validatorGetPagina, validatorRegisterPagina, validatorUpdatePagina, validatorGuardarFotoPagina, validatorGuardarTextoPagina, validatorGetCity, validatorGetActivity, validatorPatchPagina };

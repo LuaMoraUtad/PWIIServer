@@ -10,7 +10,7 @@ const router = express.Router();
  * /api/auth/users:
  *  get:
  *      tags:
- *      - User
+ *      - Auth
  *      summary: Get users in the System
  *      description: ''
  *      responses:
@@ -21,7 +21,6 @@ const router = express.Router();
  *      security:
  *          - bearerAuth: []
 */
-
 router.get("/users", authMiddleware, getUsers);
 //router.get("/users", getUsers);
 
@@ -30,7 +29,7 @@ router.get("/users", authMiddleware, getUsers);
  * /api/auth/register:
  *  post:
  *      tags:
- *      - User
+ *      - Auth
  *      summary: User register
  *      description: Register a new user
  *      requestBody:
@@ -52,7 +51,7 @@ router.post("/register", validatorRegister, registerCtrl);
  * /api/auth/login:
  *  post:
  *      tags:
- *      - User
+ *      - Auth
  *      summary: Login user
  *      description: ''
  *      requestBody:
@@ -76,7 +75,7 @@ router.put("/setadmin", authMiddleware, validatorSetadmin, setadminCtrl);
  * /api/auth/update/{id}:
  *  put:
  *      tags:
- *      - User
+ *      - Auth
  *      summary: Update user
  *      description: Update a user by an admin
  *      parameters:
@@ -107,7 +106,7 @@ router.put("/update/:id", authMiddleware, checkRol(["admin"]), validatorGetUser,
  * /api/auth/users/{id}:
  *  put:
  *      tags:
- *      - User
+ *      - Auth
  *      summary: Delete user
  *      description: Delete a user by an admin
  *      parameters:
