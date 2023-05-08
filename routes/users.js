@@ -77,8 +77,10 @@ router.post("/", validatorCreateUser, customHeader, createUser);
  *              description: Returns the users
  *          '500':
  *              description: Server error
+ *      security:
+ *          - bearerAuth: []
 */
-router.put("/:id", validatorGetUser, validatorUpdateUser, updateUser);
+router.put("/:id", authMiddleware, checkRol(["user"]), validatorGetUser, validatorUpdateUser, updateUser);
 
 /**
  * @openapi
@@ -100,7 +102,9 @@ router.put("/:id", validatorGetUser, validatorUpdateUser, updateUser);
  *              description: Returns the users
  *          '500':
  *              description: Server error
+ *      security:
+ *          - bearerAuth: []
 */
-router.delete("/:id", validatorGetUser, deleteUser);
+router.delete("/:id", authMiddleware, checkRol(["user"]), validatorGetUser, deleteUser);
 
 module.exports = router;

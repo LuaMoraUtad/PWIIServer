@@ -64,7 +64,6 @@ const getUsersCity = async (req, res) => {
 const updateUser = async (req, res) => {
     try{
         const {id, ...body} = matchedData(req);
-        //body.rol = "user";
         const data = await usersModel.update(body, {where: { id: id }});
         
         res.send(data);

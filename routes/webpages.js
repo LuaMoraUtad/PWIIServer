@@ -248,6 +248,6 @@ router.delete("/:id", authMiddleware, checkRol(["merchant"]), validatorGetPagina
  *      security:
  *          - bearerAuth: []
 */
-router.patch("/:id", authMiddleware, checkRol(["merchant"]), validatorGetPagina, validatorPatchPagina, patchPagina);
+router.patch("/:id", authMiddleware, checkRol(["user"]), validatorGetPagina, validatorPatchPagina, patchPagina);
 
 module.exports = router;
